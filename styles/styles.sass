@@ -1,0 +1,71 @@
+@import variables/_index
+@import mixins/_index
+@import layout/_index
+body
+	:font-family 'PT Mono', monospace
+
+header 
+	+header
+	h2
+		:font-size 27px	
+		:margin-bottom 0
+		:font-weight 300
+
+form 
+	:width 80%
+.overview
+	:width 20%
+	// :position fixed
+	// :margin-top 20px	
+
+
+.radio-block
+	:width 30%
+	:flex-basis 320px
+	:margin-bottom 30px
+	:border 1px solid $mid-grey
+	:position relative
+	:cursor pointer
+	label
+		:font-weight bold
+		:position absolute
+		:top 0
+		:left 0
+		:bottom 0
+		:right 0
+	p 
+		:font-family $header-font
+		:font-weight 100
+		:font-size 15px
+		:line-height 20px
+		:letter-spacing 1.2
+	i 
+		:display block
+		:color $green
+		:font-size 30px
+		:margin-bottom 20px
+	.radio-content
+		:padding 20px	
+		:height 100%
+	input[type="radio"]
+		:visibility hidden
+		:position absolute
+		:top -20px
+		&:checked + .radio-content
+			:background $mid-grey
+.budget
+	.radio-block
+		:width 25%
+		:flex-basis 240px			
+
+textarea
+	:width 100%
+	:background $light-grey
+	:border 1px solid $mid-grey
+	// :border none
+input[type="submit"]	
+	:margin 60px
+
+
+
+
