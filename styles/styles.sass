@@ -12,7 +12,8 @@ header
 		:font-weight 300
 
 form 
-	:width 80%
+	// :width 80%
+	// :margin 0 auto
 .overview
 	:width 20%
 	// :position fixed
@@ -20,9 +21,10 @@ form
 
 
 .radio-block
-	:width 30%
-	:flex-basis 320px
-	:margin-bottom 30px
+	// :width 30%
+	:flex 1 0 300px
+	:margin-bottom 20px
+	:margin-right 20px
 	:border 1px solid $mid-grey
 	:position relative
 	:cursor pointer
@@ -56,15 +58,53 @@ form
 .budget
 	.radio-block
 		:width 25%
-		:flex-basis 240px			
+		:flex-basis 240px	
+.date 
+	.flex-container
+		>div
+			:flex 1 0 320px
+			:margin-right 20px				
 
 textarea
-	:width 100%
+	:width calc(100% - 20px)
 	:background $light-grey
 	:border 1px solid $mid-grey
+	:margin-bottom 20px
+	:margin-right 20px
 	// :border none
 input[type="submit"]	
-	:margin 60px
+	:padding 10px 12px
+	:background $green
+	:color white
+	:border none
+	:margin-bottom 40px
+	:transition 0.3s all ease
+	&:hover 
+		:background lighten($green, 4%)
+input[type="text"], input[type="email"], input[type="date"]
+	:padding 10px 12px
+	:display block
+	:width calc(100% - 20px)
+	:margin-bottom 20px
+label
+	:display block
+section 
+	:padding 40px 0	
+.hidden 
+	:display none	
+
+.modal
+	:width 80%
+	:max-width 600px
+	:border 10px solid $green
+	:text-align center
+	:position fixed
+	:top 50%
+	:left 50%
+	:transform translate(-50%, -50%)
+	:background white
+	p 
+		:padding 60px 0	
 
 
 

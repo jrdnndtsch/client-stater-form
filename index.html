@@ -5,6 +5,8 @@
 	<title>New Project Form</title>
 	<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="styles.css">
+	<link rel="shortcut icon" type="image" href="favicon.ico"/>
+	<link rel="shortcut icon" type="image" href="favicon.ico"/>
 
 </head>
 <body>
@@ -16,16 +18,16 @@
 	</header>
 	<!-- <h1>Hi!</h1>
 	<h2>The goal of this form is to get a better idea of what you are looking to build.</h2> -->
-	<div class="flex-container">	
+	<div class="flex-container container">	
 		<form action="" id="add_client">	
 			<section>
-				<div class="container">
+				<div class="">
 					<h2>What are you looking to create?</h2>
 					<p>We'll get into the details later, but for now give us a broad idea of what kind of website or application you are looking for.</p>
 				</div>
-				<div class="flex-container container">
+				<div class="flex-container ">
 					<div class="radio-block">
-						<input type="radio" name="service_type" value="existing" id="existing" >
+						<input type="radio" name="service_type" value="existing" id="existing" checked >
 						<div class="radio-content">
 							<i class="fa fa-window-maximize" aria-hidden="true"></i>
 							<h3>Work on an Existing Site or Application</h3>
@@ -82,13 +84,13 @@
 				</div>
 			</section>
 			<section class="design">
-				<div class="container">
+				<div class="">
 					<h2>What about design?</h2>
 					<p>Do you have some existing branding, a fully distilled design, or are you looking to start fresh?</p>
 				</div>
-				<div class="container flex-container">
+				<div class=" flex-container">
 					<div class="radio-block">
-						<input type="radio" name="design_req" id="existing_brand_design" value="existing_brand_design">
+						<input type="radio" name="design_req" id="existing_brand_design" value="existing_brand_design" checked>
 						<div class="radio-content">
 							<i class="fa fa-laptop" aria-hidden="true"></i>
 							<h3>You have existing branding and design</h3>
@@ -118,24 +120,30 @@
 			</section>
 
 			<section class="inspiration">
-				<div class="container">
+				<div class="">
 					<h3>What are some websites or applications you like the look and feel of (provide links)</h3>
 					<textarea name="site_inspo" id="site_inspo" cols="30" rows="10"></textarea>
 				</div>
 			</section>
+			<section class="date">
+				<h3>Timeline</h3>
+				<div class=" flex-container">
+					<div>
+						<label for="start_date">When are you looking to start?</label>
+						<input type="date" name="start_date" id="start_date">
+					</div>
+					<div>
+						<label for="end_date">What is your ideal completion date?</label>
+						<input type="date" name="end_date" id="end_date">
+					</div>
 
-			<section class="details">
-				<div class="container flex-container">
-					<label for="start_date">When are you looking to start?</label>
-					<input type="date" name="start_date" id="start_date">
-
-					<label for="end_date">What is your ideal completion date?</label>
-					<input type="date" name="end_date" id="end_date">
 				</div>
-				<div class="container"><h3>What is your budget?</h3></div>
-				<div class="container flex-container budget">
+			</section>
+			<section class="details">
+				<div class=""><h3>What is your budget?</h3></div>
+				<div class=" flex-container budget">
 					<div class="radio-block">
-						<input type="radio" name="budget" value="budget_1" id="budget_1">
+						<input type="radio" name="budget" value="budget_1" id="budget_1" checked>
 						<div class="radio-content">
 							<h3>$2,000 - $5,000</h3>
 						</div>
@@ -166,26 +174,30 @@
 			</section>
 
 			<section class="project-descrition">
-				<div class="container">	
+				<div class="">	
 					<h3>Tell us a bit about your project. Who is it for? What will it do?</h3>
-					<textarea name="project_desc" id="project_desc" cols="30" rows="10"></textarea>
+					<textarea name="project_desc" id="project_desc" cols="30" rows="10" required></textarea>
 				</div>
 			</section>
 
 			<section class="contact_info">
-				<div class="container">
+				<div class="">
+					<h3>Contact Info</h3>
 					<label for="name">Your name</label>
-					<input type="text" id="name" name="name">
+					<input type="text" id="name" name="name" required>
 					<label for="email">Email</label>
-					<input type="email" id="email" name="email">
+					<input type="email" id="email" name="email" required>
 				</div>
 			</section>
 
-			<input type="submit" value="get in touch">
+			<input type="submit" value="get in touch" id="add_client_sumbit">
 		</form>
-		<div class="overview">
-			<p>Looking to create a __________</p>
+		<div class="modal hidden" id="submit_thanks">
+			<p>Thank you! We will be in touch shortly</p>
 		</div>
+		<!-- <div class="overview">
+			<p>Looking to create a __________</p>
+		</div> -->
 	<div>	
 	<script src="https://use.fontawesome.com/e936e9fdb6.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -209,10 +221,16 @@
 	  	let clientId = Math.round(Math.random()* 10000) 
 	  	firebase.database().ref(`clients/${clientId}`).set({
 	  		client
+	  	}).then(() => {
+	  		$('#add_client')[0].reset()
+	  		$('#submit_thanks').toggleClass('hidden')
+	  		setTimeout(() => {$('#submit_thanks').toggleClass('hidden')}, 2000)
 	  	})
 	  }
 
+
 	  $(() => {
+	  
 	  	$('#add_client').on('submit', (e) => {
 	  		e.preventDefault()
 	  		let form_data = $(e.target).serializeArray()
@@ -220,7 +238,7 @@
 	  		$(form_data).each(function(index, obj){
 	  		    data[obj.name] = obj.value;
 	  		});
-	  		app.addClient(data)
+	  		app.addClient(data)		
 	  		
 	  	})
 	  })
